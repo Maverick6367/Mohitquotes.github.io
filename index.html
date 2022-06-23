@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quotes</title>
+  
+</head>
+<style>
+    *{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.container{
+    border: 1px solid black;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: #2E1114;
+    margin: auto;
+    position: relative;
+}
+#quotes{
+    background-color: #501b1d;
+    min-width: 85vw;
+    width: auto;
+    box-shadow: 10px 10px 8px #250c0d ;
+    display: grid;
+    place-items: center;
+    padding: 3vw;
+    color: rgb(181, 181, 181);
+    margin-bottom: 5vh;
+    margin: 0px 10vw;
+    margin-bottom: 1vh;
+    height: auto;
+}
+#author{
+    background-color: #64485c;
+    width: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 7px 7px 5px #250c0d ;
+    height: auto;
+    margin-bottom: 2vh;
+    color: rgb(181, 181, 181);
+    margin: 0px 20vw;
+    padding: 10px;
+}
+#btn{
+    background-color: #adadad;
+    position: absolute;
+    border: none;
+    width: auto;
+    padding: 1vw;
+    cursor: pointer;
+    box-shadow: none;
+    letter-spacing: 0.2rem;
+    transform: translatey(35vh);
+    transition: 0.1s;
+}
+
+#btn:hover{
+   box-shadow: 5px 6px 8px black;
+}
+.text{
+    color: rgb(181, 181, 181);
+    margin-bottom: 2vh;
+}
+.headingTypeScript{
+    position: absolute;
+    font-size: 3.2vh;
+    transform: translateY(-35vh);
+    color: rgb(181, 181, 181);
+
+}
+</style>
+<body>
+    <div class="container">
+        <h2 class="headingTypeScript">Welcome! <span class="typeScriptSpan"></span></h2>
+        <h1 class="text">Quotes</h1>
+        <div id="quotes"></div>
+        <p class="text">By:- </p>
+        <div id="author"></div>
+        <button id="btn" onclick="getQuotes()">Get Quotes</button>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+
+    <script>
+
+        const quotes = document.getElementById('quotes');
+        const author = document.getElementById('author');
+
+        let jsonData = '';
+        const getNewQuotes = () => {
+            console.log(Math.floor(Math.random() * 1000));
+            let random = Math.floor(Math.random() * 1000);
+            let randomQuotes = jsonData[random].text;
+            let randomAuthor = jsonData[random].author;
+            quotes.innerHTML = `${randomQuotes}`;
+            author.innerHTML = `${randomAuthor}`;
+
+        }
+        const getQuotes = async () => {
+
+            const api = "https://type.fit/api/quotes";
+            try {
+                let data = await fetch(api);
+                jsonData = await data.json();
+
+                getNewQuotes();
+            } catch (error) {
+
+            }
+        };
+        getQuotes();
+
+
+        // Auto Typed Script
+        var typed = new Typed(".typeScriptSpan",{
+        strings: ["Find Your Quote :)"],
+        typeSpeed: 40,
+        backSpeed: 40,
+        loop : true
+    });
+
+    </script>
+</body>
+
+</html>
